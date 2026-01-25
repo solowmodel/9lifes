@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 1em; /* Spacing between columns */ 
+  font-size: 18px;
+  color: white;
+    display: flex;
+  justify-content: center; /* Horizontal centering */
+  align-items: center;  /* Vertical centering */
+  
+}
+.contact-form {
+  display: none;
+}
+.grid-item {
+  background-color: #black;
+  padding: 1em;
+}
+html {
+ background-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* Optional: background-attachment: fixed; */
+}
+.item-list {
+  display: flex; /* Enable flexbox */
+  flex-wrap: nowrap; /* Prevent items from wrapping */
+  min-width: 0; /* Allow items to shrink */
+}
+
+.item-list p {
+  flex: 1; /* Distribute space evenly */
+  white-space: nowrap; /* Prevent text wrapping */
+  text-align: center;  /* Optional: center text within each item */
+  margin: 0 5px;       /* Optional: add some spacing between items */
+}
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
