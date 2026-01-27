@@ -6,7 +6,7 @@ const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <main className="flex min-h-screen flex-col items-center justify-center p-4">
       {/* Moved Hours to Top */}
       <div className="fixed top-0 left-0 right-0 text-center p-2 z-10">
         <p className="text-xs text-gray-300 font-mono">
@@ -23,44 +23,59 @@ export default function Home() {
         />
       </div>
       <div className="text-center mb-2">
-        <p className={bebasNeue.className} style={{ fontSize: '40px', color: 'white' }}>
-
+        <p className={bebasNeue.className} style={{ fontSize: '20px', color: 'white' }}>
+        N9NE.LIVES CLOTHING. Premium Streetwear. Nine Lives. Zero Limits.
         </p>
-        {/* Moved Item List Down Here */}
-        <p className="text-s text-gray-300 font-mono">
-          N9NE.LIVES CLOTHING. Premium Streetwear. Nine Lives. Zero Limits.
-        </p>
+  
       </div>
 
-      <div className="flex mt-4">
-  <a
-    href="/shop" /* TODO: Update this URL to your collection page */
-    className={`
-      bg-white hover:bg-gray-50 text-black
-      border border-black
-      font-bold py-2 px-4 rounded
-      ${bebasNeue.className} w-full flex items-center justify-center
-    `}
-  >
-    Shop the Collection
-  </a>
-</div>
+      {/* SHOP BUTTON */}
+      <div className="flex mt-4 w-full max-w-xs justify-center">
+        <a
+          href="/shop" 
+          className={`
+            bg-white hover:bg-gray-50 text-black
+            border border-black
+            font-bold py-2 px-4 rounded
+            ${bebasNeue.className} w-full flex items-center justify-center text-center
+          `}
+        >
+          Shop the Collection
+        </a>
+      </div>
 
-      <a
-        href=""
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`
-          bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mt-4
-          ${bebasNeue.className}
-        `}
-      >
-        More
-      </a>
+      {/* --- SUBSCRIBE SECTION --- */}
+      <div className="mt-12 w-full max-w-md px-6">
+        <div className="text-center mb-2">
+          <p className={`${bebasNeue.className} text-xl text-white tracking-wider`}>
+            JOIN THE LIST. NEVER MISS A DROP.
+          </p>
+        </div>
+        <form className="flex flex-col sm:flex-row gap-2">
+          <input 
+            type="email" 
+            placeholder="ENTER EMAIL" 
+            required
+            className="w-full bg-transparent border border-gray-500 text-white placeholder-gray-500 px-4 py-2 rounded focus:outline-none focus:border-white text-center sm:text-left font-mono text-sm"
+          />
+          {/* UPDATED SUBSCRIBE BUTTON */}
+          <button 
+            type="submit" 
+            className={`
+              bg-transparent border border-white text-white
+              hover:bg-white hover:text-black transition-colors
+              px-6 py-2 rounded
+              ${bebasNeue.className} tracking-wide
+            `}
+          >
+            SUBSCRIBE
+          </button>
+        </form>
+      </div>
+      {/* ----------------------------- */}
 
       {/* Brand logos */}
-      <div className="flex space-x-4 mt-4">
-
+      <div className="flex space-x-4 mt-8">
         <div style={{ width: '80px' }}>
           <Image
             src="/9_star.png"
@@ -69,18 +84,17 @@ export default function Home() {
             height={80}
           />
         </div>
-
       </div>
 
       {/* Social Media Icons */}
       <div className="flex space-x-4 mt-8">
-        <a href="https://www.instagram.com/n9nelifes.clng/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+        <a href="https://www.instagram.com/n9nelifes/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
           <FaInstagram size={30} />
         </a>
-        <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+        <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
           <FaFacebook size={30} />
         </a>
-        <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
+        <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
           <FaTwitter size={30} />
         </a>
       </div>
