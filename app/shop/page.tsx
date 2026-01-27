@@ -21,23 +21,23 @@ const products = [
   },
   {
     id: 2,
-    name: 'CARHARTT THERAPY TOTE BAG',
+    name: 'WHITE TEE',
     price: '$250.00 USD',
     image: '/w_star_shirt.png', 
     soldOut: false,
   },
   {
     id: 3,
-    name: 'REWORKED VINTAGE BACKPACK',
+    name: 'RED TEE',
     price: '$180.00 USD',
-    image: '/9lb_white.png', 
+    image: '/red_star_shirt.png', 
     soldOut: false,
   },
   {
     id: 4,
-    name: 'GRAFFITI LOGO TEE',
+    name: 'GREEN TEE',
     price: '$45.00 USD',
-    image: '/9lb_white.png', 
+    image: '/green_star_shirt.png', 
     soldOut: false,
   },
 ];

@@ -6,7 +6,20 @@ const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-4">
+    <main className="flex min-h-screen flex-col items-center justify-center relative">
+      
+      {/* --- BACKGROUND GIF LAYER --- */}
+      <div className="fixed top-0 left-0 w-full h-full z-[-1]">
+        <Image
+          src="/snow.gif"  // REPLACE THIS with your filename
+          alt="Background Animation"
+          fill // This makes it stretch to fill the screen
+          style={{ objectFit: 'cover' }} // Keeps aspect ratio correct
+          className="opacity-30" // CHANGE THIS: 0 to 100 (e.g., opacity-30, opacity-70)
+        />
+        {/* Optional: Dark Overlay to make text pop even more */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
+      </div>
       {/* Moved Hours to Top */}
       <div className="fixed top-0 left-0 right-0 text-center p-2 z-10">
         <p className="text-xs text-gray-300 font-mono">
@@ -14,17 +27,17 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="mb-2 mt-12">
+      <div className="mb-8 mt-12">
         <Image
           src="/9lb_white.png"
           alt="Spin Records logo"
-          width={300}
+          width={200}
           height={100}
         />
       </div>
       <div className="text-center mb-2">
         <p className={bebasNeue.className} style={{ fontSize: '20px', color: 'white' }}>
-        N9NE.LIVES CLOTHING. Premium Streetwear. Nine Lives. Zero Limits.
+        N9NE.LIVES CLOTHING. Premium Streetwear.
         </p>
   
       </div>
@@ -77,18 +90,25 @@ export default function Home() {
       {/* Brand logos */}
       <div className="flex space-x-4 mt-8">
         <div style={{ width: '80px' }}>
-          <Image
-            src="/9_star.png"
-            alt="rawp logo"
-            width={80}
-            height={80}
-          />
+          
+          {/* LINK STARTS HERE */}
+          <a href="/page2">
+            <Image
+              src="/9_star.png"
+              alt="rawp logo"
+              width={80}
+              height={80}
+              className="cursor-pointer hover:opacity-70 transition-opacity"
+            />
+          </a>
+          {/* LINK ENDS HERE */}
+
         </div>
       </div>
 
       {/* Social Media Icons */}
       <div className="flex space-x-4 mt-8">
-        <a href="https://www.instagram.com/n9nelifes/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+        <a href="https://www.instagram.com/n9nelifes.clo/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
           <FaInstagram size={30} />
         </a>
         <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
