@@ -11,14 +11,34 @@ export const viewport = {
   userScalable: false,
 };
 
-// 1. UPDATED: Only the Black Tee remains
 const products = [
   {
     id: 1,
-    name: 'N9NE LIFES OG TEE',
+    name: 'OG RHINESTONE TEE BLK ',
     price: 'COMING SOON',
     image: '/blk_star_shirt.png', 
-    soldOut: true, // We keep this true so the badge shows up
+    soldOut: true,
+  },
+  {
+    id: 2,
+    name: 'OG RHINESTONE TEE WHT',
+    price: 'COMING SOON',
+    image: '/9stone_w.png', 
+    soldOut: false,
+  },
+  {
+    id: 3,
+    name: 'OG TEE BLK',
+    price: 'COMING SOON',
+    image: '/9t_b.png', 
+    soldOut: false,
+  },
+  {
+    id: 4,
+    name: 'OG TEE WHT',
+    price: 'COMING SOON',
+    image: '/9t_w.png', 
+    soldOut: false,
   },
 ];
 
@@ -44,11 +64,13 @@ export default function Shop() {
         </div>
       </nav>
 
-      {/* GRID: Forces 1 column */}
+      {/* --- THE FIX: INLINE STYLES --- */}
+      {/* We are NOT using Tailwind classes here. We are using raw CSS. */}
+      {/* 'gridTemplateColumns: 1fr' forces 1 column, period. */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr', 
-        rowGap: '3rem',
+        gridTemplateColumns: '1fr', // This guarantees 1 item per row
+        rowGap: '3rem',             // Spacing between rows
         width: '100%'
       }}>
         {products.map((product) => (
@@ -64,10 +86,9 @@ export default function Shop() {
                 className="object-contain p-8 group-hover:scale-105 transition-transform duration-300"
               />
               
-              {/* 2. UPDATED: Changed text to "Coming Soon" */}
               {product.soldOut && (
                 <span className="absolute bottom-4 left-4 bg-black text-white text-xs font-bold px-2 py-1 uppercase">
-                  Coming Soon
+                  COMING SOON
                 </span>
               )}
             </div>
