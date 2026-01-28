@@ -12,23 +12,29 @@ export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // --- THE FIX: MANUAL DATA SUBMISSION ---
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formData = new FormData();
-    formData.append('form-name', 'subscribe');
-    formData.append('email', email);
-
     try {
-      await fetch('/', {
+      // We manually build the data packet.
+      // This ensures 'form-name' and 'email' are sent as clear text strings.
+      const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
+        body: new URLSearchParams({
+          'form-name': 'subscribe', // Must match the hidden input value
+          'email': email,           // The email from your state
+        }).toString(),
       });
       
-      setEmail('');
-      setShowPopup(true);
+      if (response.ok) {
+        setEmail('');
+        setShowPopup(true);
+      } else {
+        console.error('Netlify returned an error');
+      }
     } catch (error) {
       console.error('Submission failed', error);
     } finally {
@@ -99,7 +105,7 @@ export default function Home() {
           onSubmit={handleSubmit}
           className="flex flex-col sm:flex-row gap-2"
         >
-          {/* Netlify Hidden Input */}
+          {/* Netlify Hidden Input - KEEPS THE BOTS HAPPY */}
           <input type="hidden" name="form-name" value="subscribe" />
 
           <input 
@@ -153,7 +159,6 @@ export default function Home() {
 
             <h3 className={`${bebasNeue.className} text-3xl mb-2`}>WELCOME TO THE FAMILY</h3>
             
-            {/* --- FIX IS HERE: Used &apos; instead of ' --- */}
             <p className="font-mono text-sm text-gray-600 mb-6">
               You&apos;re on the list. We&apos;ll hit you up when the next drop is live.
             </p>
