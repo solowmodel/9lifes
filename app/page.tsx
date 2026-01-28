@@ -1,4 +1,4 @@
-'use client'; // Required for the popup to work
+'use client';
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -8,14 +8,12 @@ import { FaInstagram, FaFacebook, FaTwitter, FaTimes } from 'react-icons/fa';
 const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
-  // --- STATE FOR POPUP & FORM ---
   const [email, setEmail] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // --- SUBMIT HANDLER ---
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Stop standard reload
+    e.preventDefault();
     setIsSubmitting(true);
 
     const formData = new FormData();
@@ -23,14 +21,12 @@ export default function Home() {
     formData.append('email', email);
 
     try {
-      // Send data to Netlify silently
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData as any).toString(),
       });
       
-      // Success: Clear form and show popup
       setEmail('');
       setShowPopup(true);
     } catch (error) {
@@ -91,7 +87,7 @@ export default function Home() {
         </a>
       </div>
 
-      {/* --- SUBSCRIBE SECTION (With Popup Logic) --- */}
+      {/* --- SUBSCRIBE SECTION --- */}
       <div className="mt-12 w-full max-w-md px-6">
         <div className="text-center mb-2">
           <p className={`${bebasNeue.className} text-xl text-white tracking-wider`}>
@@ -156,8 +152,10 @@ export default function Home() {
             </div>
 
             <h3 className={`${bebasNeue.className} text-3xl mb-2`}>WELCOME TO THE FAMILY</h3>
+            
+            {/* --- FIX IS HERE: Used &apos; instead of ' --- */}
             <p className="font-mono text-sm text-gray-600 mb-6">
-              You're on the list. We'll hit you up when the next drop is live.
+              You&apos;re on the list. We&apos;ll hit you up when the next drop is live.
             </p>
             
             <button 
@@ -173,17 +171,16 @@ export default function Home() {
           </div>
         </div>
       )}
-      {/* ----------------------- */}
 
-{/* Brand logos */}
-<div className="flex space-x-4 mt-8">
+      {/* Brand logos (No Link, Opacity Added) */}
+      <div className="flex space-x-4 mt-8">
         <div style={{ width: '40px' }}>
           <Image
             src="/9lb_white.png"
             alt="rawp logo"
             width={40}
-            height={40}
-            className="opacity-90" // 50% opacity, no hover effect, no link
+            height={80}
+            className="opacity-50"
           />
         </div>
       </div>
@@ -207,6 +204,7 @@ export default function Home() {
           LOS ANGELES, CALIFORNIA
         </p>
       </div>
+
     </main>
   );
 }
