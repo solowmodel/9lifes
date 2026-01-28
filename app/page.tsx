@@ -1,29 +1,64 @@
+'use client'; // Required for the popup to work
+
+import { useState } from 'react';
 import Image from 'next/image';
 import { Bebas_Neue } from 'next/font/google';
-import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { FaInstagram, FaFacebook, FaTwitter, FaTimes } from 'react-icons/fa';
 
 const bebasNeue = Bebas_Neue({ weight: '400', subsets: ['latin'] });
 
 export default function Home() {
+  // --- STATE FOR POPUP & FORM ---
+  const [email, setEmail] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // --- SUBMIT HANDLER ---
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Stop standard reload
+    setIsSubmitting(true);
+
+    const formData = new FormData();
+    formData.append('form-name', 'subscribe');
+    formData.append('email', email);
+
+    try {
+      // Send data to Netlify silently
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      
+      // Success: Clear form and show popup
+      setEmail('');
+      setShowPopup(true);
+    } catch (error) {
+      console.error('Submission failed', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center relative">
       
       {/* --- BACKGROUND GIF LAYER --- */}
       <div className="fixed top-0 left-0 w-full h-full z-[-1]">
         <Image
-          src="/snow.gif"  // REPLACE THIS with your filename
+          src="/snow.gif"
           alt="Background Animation"
-          fill // This makes it stretch to fill the screen
-          style={{ objectFit: 'cover' }} // Keeps aspect ratio correct
-          className="opacity-30" // CHANGE THIS: 0 to 100 (e.g., opacity-30, opacity-70)
+          fill
+          style={{ objectFit: 'cover' }}
+          className="opacity-30"
         />
-        {/* Optional: Dark Overlay to make text pop even more */}
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-40"></div>
       </div>
+
       {/* Moved Hours to Top */}
       <div className="fixed top-0 left-0 right-0 text-center p-2 z-10">
         <p className="text-xs text-gray-300 font-mono">
-          COMING SOON
+          COMING SOON 
         </p>
       </div>
 
@@ -39,7 +74,6 @@ export default function Home() {
         <p className={bebasNeue.className} style={{ fontSize: '20px', color: 'white' }}>
         N9NE.LIVES CLOTHING. Premium Streetwear.
         </p>
-  
       </div>
 
       {/* SHOP BUTTON */}
@@ -57,52 +91,100 @@ export default function Home() {
         </a>
       </div>
 
-      {/* --- SUBSCRIBE SECTION --- */}
+      {/* --- SUBSCRIBE SECTION (With Popup Logic) --- */}
       <div className="mt-12 w-full max-w-md px-6">
         <div className="text-center mb-2">
           <p className={`${bebasNeue.className} text-xl text-white tracking-wider`}>
             JOIN THE LIST. NEVER MISS A DROP.
           </p>
         </div>
-        <form className="flex flex-col sm:flex-row gap-2">
+        
+        <form 
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row gap-2"
+        >
+          {/* Netlify Hidden Input */}
+          <input type="hidden" name="form-name" value="subscribe" />
+
           <input 
             type="email" 
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="ENTER EMAIL" 
             required
             className="w-full bg-transparent border border-gray-500 text-white placeholder-gray-500 px-4 py-2 rounded focus:outline-none focus:border-white text-center sm:text-left font-mono text-sm"
           />
-          {/* UPDATED SUBSCRIBE BUTTON */}
+          
           <button 
             type="submit" 
+            disabled={isSubmitting}
             className={`
               bg-transparent border border-white text-white
               hover:bg-white hover:text-black transition-colors
               px-6 py-2 rounded
               ${bebasNeue.className} tracking-wide
+              disabled:opacity-50
             `}
           >
-            SUBSCRIBE
+            {isSubmitting ? '...' : 'SUBSCRIBE'}
           </button>
         </form>
       </div>
-      {/* ----------------------------- */}
 
-      {/* Brand logos */}
-      <div className="flex space-x-4 mt-8">
-        <div style={{ width: '80px' }}>
-          
-          {/* LINK STARTS HERE */}
-          <a href="/page2">
-            <Image
-              src="/9_star.png"
-              alt="rawp logo"
-              width={80}
-              height={80}
-              className="cursor-pointer hover:opacity-70 transition-opacity"
-            />
-          </a>
-          {/* LINK ENDS HERE */}
+      {/* --- THANK YOU POPUP --- */}
+      {showPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-white text-black p-8 rounded-lg max-w-sm w-full text-center relative border border-gray-200 shadow-xl">
+            
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="absolute top-3 right-3 text-gray-400 hover:text-black transition-colors"
+            >
+              <FaTimes size={18} />
+            </button>
 
+            {/* Popup Logo */}
+            <div className="flex justify-center mb-4">
+                <Image
+                  src="/9star_blk.png"
+                  alt="9Star Logo"
+                  width={60}
+                  height={30}
+                  className="object-contain"
+                />
+            </div>
+
+            <h3 className={`${bebasNeue.className} text-3xl mb-2`}>WELCOME TO THE FAMILY</h3>
+            <p className="font-mono text-sm text-gray-600 mb-6">
+              You're on the list. We'll hit you up when the next drop is live.
+            </p>
+            
+            <button 
+              onClick={() => setShowPopup(false)}
+              className={`
+                bg-black text-white px-6 py-2 w-full
+                hover:opacity-80 transition-opacity
+                ${bebasNeue.className} tracking-wide text-lg
+              `}
+            >
+              CLOSE
+            </button>
+          </div>
+        </div>
+      )}
+      {/* ----------------------- */}
+
+{/* Brand logos */}
+<div className="flex space-x-4 mt-8">
+        <div style={{ width: '40px' }}>
+          <Image
+            src="/9lb_white.png"
+            alt="rawp logo"
+            width={40}
+            height={40}
+            className="opacity-90" // 50% opacity, no hover effect, no link
+          />
         </div>
       </div>
 
@@ -117,6 +199,13 @@ export default function Home() {
         <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
           <FaTwitter size={30} />
         </a>
+      </div>
+
+      {/* --- LOCATION FOOTER --- */}
+      <div className="mt-8 mb-8 text-center">
+        <p className={`${bebasNeue.className} text-sm text-gray-500 tracking-widest`}>
+          LOS ANGELES, CALIFORNIA
+        </p>
       </div>
     </main>
   );
