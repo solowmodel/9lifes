@@ -23,13 +23,13 @@ export default function Home() {
       {/* Moved Hours to Top */}
       <div className="fixed top-0 left-0 right-0 text-center p-2 z-10">
         <p className="text-xs text-gray-300 font-mono">
-          SHOP | ABOUT | LOOKBOOK | CONTACT
+          COMING SOON
         </p>
       </div>
 
       <div className="mb-8 mt-12">
         <Image
-          src="/9lb_white.png"
+          src="/9star_white.png"
           alt="Spin Records logo"
           width={200}
           height={100}

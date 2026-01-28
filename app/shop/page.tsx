@@ -11,34 +11,14 @@ export const viewport = {
   userScalable: false,
 };
 
+// 1. UPDATED: Only the Black Tee remains
 const products = [
   {
     id: 1,
     name: 'N9NE LIFES OG TEE',
-    price: '$165.00 USD',
+    price: 'COMING SOON',
     image: '/blk_star_shirt.png', 
-    soldOut: true,
-  },
-  {
-    id: 2,
-    name: 'WHITE TEE',
-    price: '$250.00 USD',
-    image: '/w_star_shirt.png', 
-    soldOut: false,
-  },
-  {
-    id: 3,
-    name: 'RED TEE',
-    price: '$180.00 USD',
-    image: '/red_star_shirt.png', 
-    soldOut: false,
-  },
-  {
-    id: 4,
-    name: 'GREEN TEE',
-    price: '$45.00 USD',
-    image: '/green_star_shirt.png', 
-    soldOut: false,
+    soldOut: true, // We keep this true so the badge shows up
   },
 ];
 
@@ -64,13 +44,11 @@ export default function Shop() {
         </div>
       </nav>
 
-      {/* --- THE FIX: INLINE STYLES --- */}
-      {/* We are NOT using Tailwind classes here. We are using raw CSS. */}
-      {/* 'gridTemplateColumns: 1fr' forces 1 column, period. */}
+      {/* GRID: Forces 1 column */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '1fr', // This guarantees 1 item per row
-        rowGap: '3rem',             // Spacing between rows
+        gridTemplateColumns: '1fr', 
+        rowGap: '3rem',
         width: '100%'
       }}>
         {products.map((product) => (
@@ -86,9 +64,10 @@ export default function Shop() {
                 className="object-contain p-8 group-hover:scale-105 transition-transform duration-300"
               />
               
+              {/* 2. UPDATED: Changed text to "Coming Soon" */}
               {product.soldOut && (
                 <span className="absolute bottom-4 left-4 bg-black text-white text-xs font-bold px-2 py-1 uppercase">
-                  Sold out
+                  Coming Soon
                 </span>
               )}
             </div>
