@@ -11,43 +11,44 @@ export const viewport = {
   userScalable: false,
 };
 
+// --- UPDATED PRODUCTS TO MATCH YOUR SCREENSHOT ---
 const products = [
   {
     id: 1,
-    name: 'OG RHINESTONE TEE BLK ',
+    name: 'N9NE LIFES OG TEE BLK',
+    price: 'COMING SOON',
+    image: '/9t_b.png', 
+    soldOut: true,
+  },
+  {
+    id: 2,
+    name: 'N9NE LIFES OG TEE WHT',
+    price: 'COMING SOON',
+    image: '/9t_w.png', 
+    soldOut: true,
+  },
+  {
+    id: 3,
+    name: 'N9NE LIFES OG RHINESTONE BLK', // Matches Item 1
     price: 'COMING SOON',
     image: '/blk_star_shirt.png', 
     soldOut: true,
   },
   {
-    id: 2,
-    name: 'OG RHINESTONE TEE WHT',
+    id: 4,
+    name: 'N9NE LIFES OG RHINESTONE WHT', // Matches Item 2
     price: 'COMING SOON',
     image: '/9stone_w.png', 
-    soldOut: false,
-  },
-  {
-    id: 3,
-    name: 'OG TEE BLK',
-    price: 'COMING SOON',
-    image: '/9t_b.png', 
-    soldOut: false,
-  },
-  {
-    id: 4,
-    name: 'OG TEE WHT',
-    price: 'COMING SOON',
-    image: '/9t_w.png', 
-    soldOut: false,
+    soldOut: true, // Assuming this is sold out based on your screenshot
   },
 ];
 
 export default function Shop() {
   return (
-    <main className="min-h-screen bg-white text-black p-6 md:p-12">
+    <main className="min-h-screen bg-white text-black p-4 md:p-12 overflow-x-hidden">
       
       {/* HEADER */}
-      <nav className="flex justify-between items-start mb-12 md:mb-20">
+      <nav className="flex justify-between items-start mb-12 w-full">
         <div className="flex gap-6 font-bold text-sm tracking-wide">
            <Link href="/" className="hover:opacity-60">MENU</Link>
            <Link href="/cart" className="hover:opacity-60">CART</Link>
@@ -59,44 +60,38 @@ export default function Shop() {
                alt="Logo" 
                width={100} 
                height={50} 
+               className="w-full h-auto"
              />
            </Link>
         </div>
       </nav>
 
-      {/* --- THE FIX: INLINE STYLES --- */}
-      {/* We are NOT using Tailwind classes here. We are using raw CSS. */}
-      {/* 'gridTemplateColumns: 1fr' forces 1 column, period. */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr', // This guarantees 1 item per row
-        rowGap: '3rem',             // Spacing between rows
-        width: '100%'
-      }}>
+      {/* FLEX COLUMN LAYOUT (Mobile Fix) */}
+      <div className="flex flex-col w-full gap-16 items-center">
         {products.map((product) => (
-          <div key={product.id} className="group cursor-pointer">
+          <div key={product.id} className="group cursor-pointer w-full max-w-[500px]">
             
             {/* PRODUCT IMAGE */}
             <div className="relative w-full aspect-square bg-transparent mb-4 flex items-center justify-center">
               <Image
                 src={product.image}
                 alt={product.name}
-                width={500}
-                height={500}
-                className="object-contain p-8 group-hover:scale-105 transition-transform duration-300"
+                width={600}
+                height={600}
+                className="w-full h-auto object-contain p-4 group-hover:scale-105 transition-transform duration-300"
               />
               
               {product.soldOut && (
-                <span className="absolute bottom-4 left-4 bg-black text-white text-xs font-bold px-2 py-1 uppercase">
-                  COMING SOON
+                <span className="absolute bottom-4 left-4 bg-black text-white text-xs font-bold px-3 py-1 uppercase z-10">
+                  Coming Soon
                 </span>
               )}
             </div>
 
             {/* PRODUCT INFO */}
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between items-start w-full px-2">
               <div className="max-w-[85%]">
-                <h2 className={`${bebasNeue.className} text-xl leading-none mb-1`}>
+                <h2 className={`${bebasNeue.className} text-2xl leading-none mb-1`}>
                   {product.name}
                 </h2>
                 <p className="text-gray-500 text-sm font-mono">
@@ -104,7 +99,7 @@ export default function Shop() {
                 </p>
               </div>
               
-              <div className="flex gap-2 text-xs text-gray-400">
+              <div className="flex gap-2 text-xs text-gray-400 mt-1">
                 <span>&lt;</span>
                 <span>&gt;</span>
               </div>
